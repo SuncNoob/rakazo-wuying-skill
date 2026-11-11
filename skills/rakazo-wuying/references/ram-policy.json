@@ -1,0 +1,15 @@
+{
+  "Version": "1",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ecd:DescribeDesktops",
+        "ecd:StartDesktops",
+        "ecd:StopDesktops",
+        "appstream-center:GetAuthCode"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

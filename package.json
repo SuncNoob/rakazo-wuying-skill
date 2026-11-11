@@ -1,0 +1,12 @@
+{
+  "name": "rakazo-wuying-skill",
+  "private": true,
+  "type": "module",
+  "description": "Agent skill: connect your own Wuying cloud computer to Rakazo",
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "check": "node skills/rakazo-wuying/scripts/check.mjs",
+    "test": "node --test"
+  }
+}
