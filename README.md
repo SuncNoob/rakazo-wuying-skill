@@ -3,8 +3,12 @@
 [English](README.en.md)
 
 一个给 AI agent 用的 skill。装上以后，对你的 agent（Claude Code、Codex、Cursor 等）说一句
-**「帮我把我的无影云电脑接到 Rakazo」**，它会一步步带你完成：准备云电脑、建最小权限的
-AccessKey、拿到 MCP 网关、先自检、再填进 Rakazo 的 **设置 → 电脑**。
+**「帮我开始用 Rakazo，接上我的无影云电脑」**，它会先问你三件事，再一步步带你做：
+
+1. **注册了吗？** 没注册就带你注册，注册流程里顺便连接模型。
+2. **要不要配置模型的 API 密钥？** 推荐用 OpenAI 兼容网关，比如阿里云百炼或 OpenRouter。
+3. **要不要接入无影？** 准备云电脑、建最小权限的 AccessKey、在 MindCenter 打开 MCP 公网服务、
+   先自检，再填进 Rakazo 的 **设置 → 电脑**。
 
 接好以后，你的 Bot 就在**你自己的**无影 Windows 云电脑上执行命令、读写文件、看屏幕、操作鼠标键盘，
 你也可以在 Rakazo 里实时观看。连接保存在你的账号上，其他人读不到。
@@ -27,7 +31,8 @@ cp -r rakazo-wuying-skill/skills/rakazo-wuying ~/.claude/skills/
 
 ## 你需要准备
 
-- 一个 Rakazo 账号，并且这个 Rakazo 在 **设置 → 电脑** 里能选 **Wuying**
+- 一个 OpenAI 兼容模型网关的 API 密钥（例如阿里云百炼、OpenRouter）
+- 接无影时：这个 Rakazo 的 **设置 → 电脑** 里能选 **Wuying**
 - 一台已开通 **AI 云电脑**、已分配给终端用户的无影 **Windows** 云电脑
 - 一个阿里云 RAM 用户的 AccessKey，只授予 [这 4 个权限](skills/rakazo-wuying/references/ram-policy.json)
 - 在云电脑的 **MindCenter** 里打开 **MCP 公网服务**，拿到 MCP 网关配置（`mcpServers` JSON，含网关地址和 Bearer Token）

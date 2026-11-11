@@ -1,30 +1,85 @@
 ---
 name: rakazo-wuying
-description: Connect a person's own Wuying (无影) Windows cloud computer to their Rakazo account so their bots work on it. Use when someone wants Rakazo bots on "my own Wuying", "我自己的无影云电脑", asks how to fill Rakazo's Settings → Computer → Wuying form (desktop ID, end user ID, AccessKey, gateway URL and token), gets "Could not save computer settings / 无法保存电脑设置" there, or needs the RAM permissions or the MindCenter MCP gateway (MCP 公网服务) for it.
+description: Get someone started on Rakazo and connect their own Wuying (无影) Windows cloud computer, step by step - sign-up, a model API key through an OpenAI-compatible gateway, then Wuying. Use when someone wants to start using Rakazo, set up its model key or token, run Rakazo bots on "my own Wuying" / "我自己的无影云电脑", fill Settings → Computer → Wuying (desktop ID, end user ID, AccessKey, gateway URL and token), gets "Could not save computer settings / 无法保存电脑设置", or needs the RAM permissions or the MindCenter MCP gateway (MCP 公网服务).
 ---
 
-# Connect your own Wuying computer to Rakazo
+# Rakazo with your own Wuying computer
 
-Goal: the person's bots run commands, use files, see the screen and use the mouse and keyboard on
-**their own** Wuying Windows cloud computer, and they can watch it in Rakazo. It is set per account
-in **Settings → Computer** (设置 → 电脑) and nobody else can read the saved keys.
+Goal: the person has a Rakazo account with a working model, and their bots run commands, use
+files, see the screen and use the mouse and keyboard on **their own** Wuying Windows cloud
+computer, which they can watch in Rakazo.
 
 Talk to the person in their language. Rakazo's UI is often in Chinese; the Chinese labels are given
-in brackets.
+in brackets. Go one step at a time and wait for them to finish each before the next.
 
 ## Rules for secrets
 
-- Never ask for the AccessKey secret or the gateway token in chat, and never print, log or commit
-  them. They go into a local file only the person reads (step 4) and into Rakazo's form, which
-  they fill in themselves.
-- If the person pastes a secret into chat anyway, use it only for the check, then tell them to
-  rotate it once it works (a new AccessKey in RAM, a new gateway token from Wuying).
+- Never ask for an API key, AccessKey secret or gateway token in chat, and never print, log or
+  commit one. They go into Rakazo's forms, which the person fills in themselves, and the Wuying
+  ones also into a local file only they read (W5).
+- If the person pastes a secret into chat anyway, use it only for what it was for, then tell them
+  to rotate it once things work.
 - The RAM user gets exactly the four actions in `references/ram-policy.json`, nothing more.
 
-## Step 1 · Can this Rakazo take your own computer?
+## Start by asking
 
-Ask for the Rakazo address they use (for example `https://rakazo.com.cn`), then have them open it,
-click their avatar at the bottom-left, then **Settings** (设置), then **Computer** (电脑).
+Ask these one at a time:
+
+1. **"Do you already have a Rakazo account?" (已经注册 Rakazo 了吗？)** Also ask which Rakazo
+   address they use, for example `https://rakazo.com.cn`.
+   - No → **A · Sign up**. Sign-up ends in the model step, so skip question 2.
+   - Yes → question 2.
+2. **"Do you want to set up a model API key?" (要不要配置模型的 API 密钥？)** Only needed if they
+   haven't connected a model, or want to change it.
+   - Yes → **B · Model API key**.
+3. **"Do you want to connect your own Wuying cloud computer?" (要不要接入你自己的无影云电脑？)**
+   - Yes → **C · Wuying**. No → done; they can come back to this any time.
+
+## A · Sign up
+
+1. Open `<Rakazo address>/sign-up`. On **Create your Rakazo** (创建你的 Rakazo), fill in **Name**
+   (你的名字), **Email** (邮箱) and **Password** (密码), then **Create account** (创建账户). If it
+   says **Check your email** (请查看邮箱), they confirm from the email first.
+2. A short survey may follow; any answers are fine.
+3. **Connect a model** (连接模型) comes next. Do it as in **B**, from step 2, then **Continue**
+   (继续). Rakazo then creates their first bot and opens its chat.
+
+Then ask question 3.
+
+## B · Model API key
+
+Rakazo works with any **OpenAI-compatible** model gateway. Suggest one they can pay for easily:
+
+| Gateway | Server URL | Key from |
+| --- | --- | --- |
+| Alibaba Cloud Model Studio (阿里云百炼), mainland China | `https://dashscope.aliyuncs.com/compatible-mode/v1` | Model Studio console → API-KEY |
+| Model Studio, international | `https://dashscope-intl.aliyuncs.com/compatible-mode/v1` | Model Studio console → API Key |
+| OpenRouter | `https://openrouter.ai/api/v1` | openrouter.ai → Keys |
+
+Any other OpenAI-compatible gateway (a company's own, or another provider) works the same way.
+
+1. Outside sign-up: avatar at the bottom-left → **Settings** (设置) → **Models** (模型).
+2. **Provider** (提供方): choose **OpenAI-compatible**.
+3. **OpenAI-compatible server URL** (OpenAI 兼容服务器 URL): the gateway's address. Rakazo adds
+   `/v1` if it is missing.
+4. **API key** (API 密钥): they paste their key here themselves.
+5. **Find models** (查找模型), then pick a **Model** (模型) from the list; **Other model…**
+   (其他模型…) takes an exact model ID if it isn't listed. Prefer a capable chat model that
+   supports tool calls and images, since bots act through tools and read screenshots.
+6. **Continue** (继续) or save. Rakazo tests the key and model before it accepts them.
+
+If **Find models** fails: a wrong URL (check the table), a key from a different region or gateway,
+or a key without model access or credit.
+
+## C · Wuying
+
+Results: every bot on their **shared computer** (the default, 团队电脑) moves to their desktop the
+next time it starts. Bots switched to **their own computer** (拥有专属电脑的 Bot) keep using the
+deployment's computers. Nobody else can read the saved keys.
+
+### W1 · Can this Rakazo take your own computer?
+
+Avatar at the bottom-left → **Settings** (设置) → **Computer** (电脑).
 
 - They see **New computers run on** (新电脑运行于), with **Wuying**: continue. Admins see the
   deployment's form first and expand **My computers** (我的电脑) below it. That lower form is
@@ -33,11 +88,7 @@ click their avatar at the bottom-left, then **Settings** (设置), then **Comput
   Rakazo operator has to turn it on. On a self-hosted Rakazo that means `COMPUTER_SETTINGS_ENABLED=true`
   on the API and a `SANDBOX_PROVIDER` other than `desktop` or `fake`. Stop here until that's done.
 
-Tell them up front what they get: bots on their **shared computer** (the default, 团队电脑) move to
-their desktop the next time it starts. Bots switched to **their own computer** (拥有专属电脑的 Bot)
-keep using the deployment's computers.
-
-## Step 2 · The Wuying desktop
+### W2 · The Wuying desktop
 
 In the Wuying console (无影云电脑控制台) they need:
 
@@ -47,7 +98,7 @@ In the Wuying console (无影云电脑控制台) they need:
 2. The desktop **assigned to an end user** (终端用户), for example a convenience account (便捷账号).
    Note the **end user ID**, the user name it is assigned to. Screen logins are issued for this user.
 
-## Step 3 · An AccessKey that can only do this
+### W3 · An AccessKey that can only do this
 
 In RAM (访问控制, ram.console.aliyun.com):
 
@@ -58,7 +109,7 @@ In RAM (访问控制, ram.console.aliyun.com):
 
 Use a RAM user, never the account's main AccessKey.
 
-## Step 4 · The desktop's MCP gateway
+### W4 · The desktop's MCP gateway
 
 On the AI cloud computer, open **MindCenter** and turn on **MCP public service** (MCP 公网服务).
 That gives the desktop's MCP gateway, as a client config like this:
@@ -78,7 +129,7 @@ The **gateway URL** is the `url`. The **gateway token** is what follows `Bearer 
 serve the `wuying-system-tool` tools; the check below confirms it. If MindCenter is missing,
 the desktop is not an AI cloud computer yet; open AI cloud computer for it first.
 
-## Step 5 · Check everything before Rakazo does
+### W5 · Check everything before Rakazo does
 
 Rakazo checks the same things on Save but only says it could not save. This check says which part
 is wrong. It needs Node.js 18+ and no install.
@@ -119,7 +170,7 @@ step with the fix, and never prints a secret. Fix and rerun until it says **Read
 | Gateway lacks tools | The gateway doesn't serve `wuying-system-tool`; check it is the MindCenter gateway of an AI cloud computer |
 | Desktop is Stopped, gateway not checked | Fine to save; start the desktop and rerun to check the gateway too |
 
-## Step 6 · Save it in Rakazo
+### W6 · Save it in Rakazo
 
 The person enters these themselves in **Settings → Computer** (设置 → 电脑; admins: under **My
 computers** 我的电脑). Choose **Wuying**, then:
@@ -135,13 +186,13 @@ computers** 我的电脑). Choose **Wuying**, then:
 | Gateway token (网关令牌) | `WUYING_MCP_TOKEN`, without `Bearer ` |
 
 Then **Save** (保存). **Saved** (已保存) means it passed. If it says **Could not save computer
-settings** (无法保存电脑设置), rerun step 5; whatever it flags is the cause.
+settings** (无法保存电脑设置), rerun W5; whatever it flags is the cause.
 
 After saving, the secret fields show only **Saved**. To change other fields later, leave them blank.
 A new gateway URL needs every key entered again. Choosing **Default** (默认) deletes the saved
 connection. Delete `wuying.env` once it is saved, or keep it somewhere private for later checks.
 
-## Step 7 · See it work
+### W7 · See it work
 
 1. Open a bot that uses the shared computer, then its **Computer** (电脑) tab. A computer already
    running moves to the desktop the next time it starts. To move it now, choose **Stop computer**
@@ -149,7 +200,7 @@ connection. Delete `wuying.env` once it is saved, or keep it somewhere private f
 2. The panel shows the Windows desktop. Ask the bot something like "run `whoami` on your computer
    and take a screenshot".
 
-## Good to know
+### Good to know
 
 - **The desktop is shared.** Every bot computer on it uses the same Windows account, files, screen
   and saved logins. Each computer gets its own folder, `%USERPROFILE%\rakazo\<home>`. Share a

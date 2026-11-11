@@ -3,8 +3,14 @@
 [简体中文](README.md)
 
 A skill for AI agents. Install it, then tell your agent (Claude Code, Codex, Cursor and others)
-**"connect my Wuying cloud computer to Rakazo"**. It walks you through preparing the desktop, a
-least-privilege AccessKey, the MCP gateway, a self-check, and Rakazo's **Settings → Computer**.
+**"get me started on Rakazo with my Wuying cloud computer"**. It asks three things, then walks you
+through each:
+
+1. **Do you have an account?** If not, it signs you up; sign-up includes connecting a model.
+2. **Set up a model API key?** It suggests an OpenAI-compatible gateway such as Alibaba Cloud
+   Model Studio or OpenRouter.
+3. **Connect Wuying?** The desktop, a least-privilege AccessKey, MindCenter's MCP public service,
+   a self-check, and Rakazo's **Settings → Computer**.
 
 Once connected, your bots run commands, use files, see the screen and use the mouse and keyboard on
 **your own** Wuying Windows cloud computer, and you can watch it live in Rakazo. The connection is
@@ -28,7 +34,8 @@ For other agents, put `skills/rakazo-wuying` in their skills folder, or ask them
 
 ## You need
 
-- A Rakazo account on a Rakazo whose **Settings → Computer** offers **Wuying**
+- An API key for an OpenAI-compatible model gateway (for example Model Studio or OpenRouter)
+- For Wuying: a Rakazo whose **Settings → Computer** offers **Wuying**
 - A Wuying **Windows AI cloud computer** assigned to an end user
 - An AccessKey for a RAM user with only [these four actions](skills/rakazo-wuying/references/ram-policy.json)
 - **MCP public service** turned on in the desktop's **MindCenter**, which gives the gateway's
