@@ -1,6 +1,6 @@
 ---
 name: rakazo-wuying
-description: Connect a person's own Wuying (无影) Windows cloud computer to their Rakazo account so their bots work on it. Use when someone wants Rakazo bots on "my own Wuying", "我自己的无影云电脑", asks how to fill Rakazo's Settings → Computer → Wuying form (desktop ID, end user ID, AccessKey, gateway URL and token), gets "Could not save computer settings / 无法保存电脑设置" there, or needs the RAM permissions for it.
+description: Connect a person's own Wuying (无影) Windows cloud computer to their Rakazo account so their bots work on it. Use when someone wants Rakazo bots on "my own Wuying", "我自己的无影云电脑", asks how to fill Rakazo's Settings → Computer → Wuying form (desktop ID, end user ID, AccessKey, gateway URL and token), gets "Could not save computer settings / 无法保存电脑设置" there, or needs the RAM permissions or the MindCenter MCP gateway (MCP 公网服务) for it.
 ---
 
 # Connect your own Wuying computer to Rakazo
@@ -41,7 +41,8 @@ keep using the deployment's computers.
 
 In the Wuying console (无影云电脑控制台) they need:
 
-1. A **Windows** cloud computer. Note its **desktop ID** (starts with `ecd-`) and its **region**
+1. A **Windows AI cloud computer** (AI 云电脑); an ordinary cloud computer has no MCP gateway.
+   Note its **desktop ID** (starts with `ecd-`) and its **region**
    (for example `cn-hangzhou`, `cn-shanghai`; it is shown with the desktop).
 2. The desktop **assigned to an end user** (终端用户), for example a convenience account (便捷账号).
    Note the **end user ID**, the user name it is assigned to. Screen logins are issued for this user.
@@ -59,7 +60,8 @@ Use a RAM user, never the account's main AccessKey.
 
 ## Step 4 · The desktop's MCP gateway
 
-Wuying delivers each desktop's MCP gateway as a client config like this:
+On the AI cloud computer, open **MindCenter** and turn on **MCP public service** (MCP 公网服务).
+That gives the desktop's MCP gateway, as a client config like this:
 
 ```json
 {
@@ -73,9 +75,8 @@ Wuying delivers each desktop's MCP gateway as a client config like this:
 ```
 
 The **gateway URL** is the `url`. The **gateway token** is what follows `Bearer `. The gateway must
-serve the `wuying-system-tool` tools; the check below confirms it. If they don't have a config,
-they get it from whoever provisioned the desktop or their Wuying contact; it can't be made
-from the console steps above.
+serve the `wuying-system-tool` tools; the check below confirms it. If MindCenter is missing,
+the desktop is not an AI cloud computer yet; open AI cloud computer for it first.
 
 ## Step 5 · Check everything before Rakazo does
 
@@ -114,8 +115,8 @@ step with the fix, and never prints a secret. Fix and rerun until it says **Read
 | `ENOTFOUND` | The region ID is misspelled |
 | Not assigned to end user | Use the user it is assigned to, or assign it in the Wuying console |
 | Gateway refused the token | Recopy the token after `Bearer ` |
-| Could not reach the gateway | Use the full URL from the config, ending in `/mcp`; the desktop must be running |
-| Gateway lacks tools | The gateway doesn't serve `wuying-system-tool`; ask for one that does |
+| Could not reach the gateway | MCP public service must be on in MindCenter, the desktop running, and the URL the full one ending in `/mcp` |
+| Gateway lacks tools | The gateway doesn't serve `wuying-system-tool`; check it is the MindCenter gateway of an AI cloud computer |
 | Desktop is Stopped, gateway not checked | Fine to save; start the desktop and rerun to check the gateway too |
 
 ## Step 6 · Save it in Rakazo

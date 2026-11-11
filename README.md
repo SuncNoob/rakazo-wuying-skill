@@ -28,9 +28,9 @@ cp -r rakazo-wuying-skill/skills/rakazo-wuying ~/.claude/skills/
 ## 你需要准备
 
 - 一个 Rakazo 账号，并且这个 Rakazo 在 **设置 → 电脑** 里能选 **Wuying**
-- 一台已分配给终端用户的无影 **Windows** 云电脑
+- 一台已开通 **AI 云电脑**、已分配给终端用户的无影 **Windows** 云电脑
 - 一个阿里云 RAM 用户的 AccessKey，只授予 [这 4 个权限](skills/rakazo-wuying/references/ram-policy.json)
-- 这台云电脑的 MCP 网关配置（无影交付的 `mcpServers` JSON，含网关地址和 Bearer Token）
+- 在云电脑的 **MindCenter** 里打开 **MCP 公网服务**，拿到 MCP 网关配置（`mcpServers` JSON，含网关地址和 Bearer Token）
 
 ## 自检脚本
 

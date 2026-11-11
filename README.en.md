@@ -29,9 +29,10 @@ For other agents, put `skills/rakazo-wuying` in their skills folder, or ask them
 ## You need
 
 - A Rakazo account on a Rakazo whose **Settings → Computer** offers **Wuying**
-- A Wuying **Windows** cloud computer assigned to an end user
+- A Wuying **Windows AI cloud computer** assigned to an end user
 - An AccessKey for a RAM user with only [these four actions](skills/rakazo-wuying/references/ram-policy.json)
-- The desktop's MCP gateway config (Wuying's `mcpServers` JSON with the gateway URL and bearer token)
+- **MCP public service** turned on in the desktop's **MindCenter**, which gives the gateway's
+  `mcpServers` config with its URL and bearer token
 
 ## The check script
 

@@ -363,7 +363,7 @@ export async function check(settings, { fetchImpl = fetch, log = console.log } =
         return fail("The MCP gateway refused the token", "Copy the token after \"Bearer \" in the gateway config again.");
       return fail(
         `Could not reach the MCP gateway (${error.cause?.code ?? error.message})`,
-        "Check the URL is the full one from the gateway config, ending in /mcp, and that the desktop is running.",
+        "Turn on MCP public service (MCP 公网服务) in MindCenter, and use the full URL from its config, ending in /mcp.",
       );
     }
     pass("MCP gateway answers");
@@ -374,8 +374,8 @@ export async function check(settings, { fetchImpl = fetch, log = console.log } =
       return fail(
         `The gateway lacks ${absent.join(", ")}`,
         bare.length
-          ? `It names them without the ${TOOL_PREFIX} prefix Rakazo calls. Ask for a gateway that serves wuying-system-tool.`
-          : "Ask for a gateway that serves the wuying-system-tool tools.",
+          ? `It names them without the ${TOOL_PREFIX} prefix Rakazo calls. Use the MindCenter gateway of an AI cloud computer.`
+          : "Use the MindCenter gateway of an AI cloud computer; it serves the wuying-system-tool tools.",
       );
     }
     const extra = OPTIONAL_TOOLS.filter((tool) => !names.has(TOOL_PREFIX + tool));
